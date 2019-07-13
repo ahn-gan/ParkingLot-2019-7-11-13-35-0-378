@@ -23,6 +23,18 @@ public class ParkingLotTest {
     }
 
     @Test
+    public void should_no_ticket_when_no_car_to_park() throws Exception {
+        // given
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        // when & then
+        Assertions.assertThrows(Exception.class, () -> {
+            parkingBoy.park(null);
+        });
+    }
+
+    @Test
     public void should_multiple_cars_when_park_to_parking_lot_then_get_them_back() throws Exception {
         // given
         Car firstCar = new Car();

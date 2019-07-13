@@ -12,7 +12,7 @@ public class ParkingLot {
 
     // park car and return ticket
     public Ticket park(Car car) throws Exception {
-        if (parkingCarTicket.size() < 10) {
+        if (null != car && parkingCarTicket.size() < 10) {
             Ticket ticket = new Ticket();
             parkingCarTicket.put(ticket, car);
             return ticket;
