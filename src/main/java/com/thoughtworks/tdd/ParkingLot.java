@@ -7,14 +7,18 @@ public class ParkingLot {
     private HashMap<Ticket, Car> parkingCarTicket;
 
     public ParkingLot() {
-        this.parkingCarTicket = new HashMap<>();
+        this.parkingCarTicket = new HashMap<>(10);
     }
 
     // park car and return ticket
-    public Ticket park(Car car) {
-        Ticket ticket = new Ticket();
-        parkingCarTicket.put(ticket, car);
-        return ticket;
+    public Ticket park(Car car) throws Exception {
+        if (parkingCarTicket.size() < 10) {
+            Ticket ticket = new Ticket();
+            parkingCarTicket.put(ticket, car);
+            return ticket;
+        } else {
+            throw new Exception();
+        }
     }
 
 

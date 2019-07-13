@@ -43,7 +43,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_not_fetch_car_when_ticket_is_wrong() {
+    public void should_not_fetch_car_when_ticket_is_wrong() throws Exception {
         // given
         Car car = new Car();
         ParkingLot parkingLot = new ParkingLot();
@@ -61,7 +61,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_not_fetch_car_when_no_ticket() {
+    public void should_not_fetch_car_when_no_ticket() throws Exception {
         // given
         Car car = new Car();
         ParkingLot parkingLot = new ParkingLot();
@@ -92,5 +92,26 @@ public class ParkingLotTest {
             Car fetchCarAgain = parkingBoy.fetch(ticket);
         });
     }
+
+    @Test
+    public void should_no_ticker_for_parking_car_when_parking_lot_has_no_position() throws Exception {
+        // given
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        // when
+        // parking 10 cars
+        for(int i = 0; i < 10; i++) {
+            parkingBoy.park(new Car());
+        }
+
+        // then
+        Assertions.assertThrows(Exception.class, () -> {
+            parkingBoy.park(car);
+        });
+    }
+
+
 
 }
