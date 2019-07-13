@@ -1,7 +1,5 @@
 package com.thoughtworks.tdd;
 
-import com.thoughtworks.tdd.exception.CustomException;
-
 import java.util.HashMap;
 
 public class ParkingLot {
@@ -13,19 +11,26 @@ public class ParkingLot {
     }
 
     // park car and return ticket
-    public Ticket park(Car car) throws Exception {
-        if (null != car && parkingCarTicket.size() < 10) {
-            Ticket ticket = new Ticket();
-            parkingCarTicket.put(ticket, car);
-            return ticket;
+    public ParkingCarResult park(Car car) {
+        ParkingCarResult parkingCarResult = new ParkingCarResult();
+        if (null != car) {
+            if (parkingCarTicket.size() < 10) {
+                Ticket ticket = new Ticket();
+                parkingCarTicket.put(ticket, car);
+                parkingCarResult.setTicket(ticket);
+            } else {
+                // parking lot has no position
+                parkingCarResult.setErrorMessage("Not enough position.");
+            }
         } else {
-            throw new Exception();
+            // car is null
+            parkingCarResult.setErrorMessage("Car is null.");
         }
+        return parkingCarResult;
     }
 
-
     // fetch car when given ticket
-    public FetchCarResult getCar(Ticket ticket) throws Exception {
+    public FetchCarResult getCar(Ticket ticket) {
         FetchCarResult fetchCarResult = new FetchCarResult();
         if (null != ticket) {
             Car resultCar = parkingCarTicket.get(ticket);

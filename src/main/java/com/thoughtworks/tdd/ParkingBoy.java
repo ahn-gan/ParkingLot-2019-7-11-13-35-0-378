@@ -8,11 +8,11 @@ public class ParkingBoy {
         this.parkingLot = parkingLot;
     }
 
-    public Ticket park(Car car) throws Exception {
+    public ParkingCarResult park(Car car) {
         return parkingLot.park(car);
     }
 
-    public FetchCarResult fetch(Ticket ticket) throws Exception {
+    public FetchCarResult fetch(Ticket ticket) {
         return parkingLot.getCar(ticket);
     }
 }
