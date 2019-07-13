@@ -19,7 +19,13 @@ public class ParkingLot {
 
 
     // fetch car when given ticket
-    public Car getCar(Ticket ticket) {
-        return parkingCarTicket.get(ticket);
+    public Car getCar(Ticket ticket) throws Exception {
+        Car resultCar = parkingCarTicket.get(ticket);
+        if (resultCar == null) {
+            throw new Exception();
+        } else {
+            return resultCar;
+        }
+
     }
 }
