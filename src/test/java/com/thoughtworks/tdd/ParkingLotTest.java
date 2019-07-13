@@ -76,4 +76,21 @@ public class ParkingLotTest {
         });
     }
 
+    @Test
+    public void should_no_fetch_car_when_ticket_has_already_been_used() throws Exception {
+        // given
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        // when
+        Ticket ticket = parkingBoy.park(car);
+        Car fetchCar = parkingBoy.fetch(ticket);
+
+        // then
+        Assertions.assertThrows(Exception.class, () -> {
+            Car fetchCarAgain = parkingBoy.fetch(ticket);
+        });
+    }
+
 }

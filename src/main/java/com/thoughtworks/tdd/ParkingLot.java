@@ -24,6 +24,7 @@ public class ParkingLot {
         if (resultCar == null) {
             throw new Exception();
         } else {
+            parkingCarTicket.remove(ticket);
             return resultCar;
         }
 
