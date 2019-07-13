@@ -16,10 +16,10 @@ public class ParkingLotTest {
 
         // when
         Ticket ticket = parkingBoy.park(car);
-        Car fetchCar = parkingBoy.fetch(ticket);
+        FetchCarResult fetchCarResult = parkingBoy.fetch(ticket);
 
         // then
-        assertSame(car, fetchCar);
+        assertSame(car, fetchCarResult.getCar());
     }
 
     @Test
@@ -44,14 +44,14 @@ public class ParkingLotTest {
 
         // when
         Ticket firstTicket = parkingBoy.park(firstCar);
-        Car fetchedFirstCar = parkingBoy.fetch(firstTicket);
+        FetchCarResult fetchedFirstCarResult = parkingBoy.fetch(firstTicket);
 
         Ticket secondTicket = parkingBoy.park(secondCar);
-        Car fetchedSecondCar = parkingBoy.fetch(secondTicket);
+        FetchCarResult fetchedSecondCarResult = parkingBoy.fetch(secondTicket);
 
         // then
-        assertSame(firstCar, fetchedFirstCar);
-        assertSame(secondCar, fetchedSecondCar);
+        assertSame(firstCar, fetchedFirstCarResult.getCar());
+        assertSame(secondCar, fetchedSecondCarResult.getCar());
     }
 
     @Test
@@ -66,10 +66,12 @@ public class ParkingLotTest {
 
         Ticket wrongTicket = new Ticket();
 
+        FetchCarResult fetchCarResult = parkingBoy.fetch(wrongTicket);
+
         // then
-        Assertions.assertThrows(Exception.class, () -> {
-            Car fetchCar = parkingBoy.fetch(wrongTicket);
-        });
+        Assertions.assertEquals(null, fetchCarResult.getCar());
+//        Assertions.assertThrows(Exception.class, () -> {
+//        });
     }
 
     @Test
@@ -81,11 +83,10 @@ public class ParkingLotTest {
 
         // when
         Ticket ticket = parkingBoy.park(car);
+        FetchCarResult fetchCarResult = parkingBoy.fetch(null);
 
         // then
-        Assertions.assertThrows(Exception.class, () -> {
-            Car fetchCar = parkingBoy.fetch(null);
-        });
+        Assertions.assertEquals(null, fetchCarResult.getCar());
     }
 
     @Test
@@ -97,12 +98,12 @@ public class ParkingLotTest {
 
         // when
         Ticket ticket = parkingBoy.park(car);
-        Car fetchCar = parkingBoy.fetch(ticket);
+        parkingBoy.fetch(ticket);
+
+        FetchCarResult fetchCarResultAgain = parkingBoy.fetch(ticket);
 
         // then
-        Assertions.assertThrows(Exception.class, () -> {
-            Car fetchCarAgain = parkingBoy.fetch(ticket);
-        });
+        Assertions.assertEquals(null, fetchCarResultAgain.getCar());
     }
 
     @Test
@@ -114,7 +115,7 @@ public class ParkingLotTest {
 
         // when
         // parking 10 cars
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             parkingBoy.park(new Car());
         }
 
@@ -124,6 +125,19 @@ public class ParkingLotTest {
         });
     }
 
+    @Test
+    public void should_return_unrecognized_parking_ticket_message_for_fetching_car_when_ticket_is_wrong() throws Exception {
+        // given
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
 
+        // when
+        Ticket ticket = parkingBoy.park(car);
+
+        FetchCarResult fetchCarResult = parkingBoy.fetch(new Ticket());
+
+        Assertions.assertEquals("Unrecognized parking ticket.", fetchCarResult.getErrormessage());
+    }
 
 }

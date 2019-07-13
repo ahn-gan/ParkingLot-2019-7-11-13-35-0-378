@@ -1,5 +1,7 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.tdd.exception.CustomException;
+
 import java.util.HashMap;
 
 public class ParkingLot {
@@ -23,14 +25,16 @@ public class ParkingLot {
 
 
     // fetch car when given ticket
-    public Car getCar(Ticket ticket) throws Exception {
+    public FetchCarResult getCar(Ticket ticket) throws Exception {
         Car resultCar = parkingCarTicket.get(ticket);
+        FetchCarResult fetchCarResult = new FetchCarResult();
         if (resultCar == null) {
-            throw new Exception();
+            fetchCarResult.setErrormessage("Unrecognized parking ticket.");
+//            throw new CustomException("Unrecognized parking ticket.");
         } else {
+            fetchCarResult.setCar(resultCar);
             parkingCarTicket.remove(ticket);
-            return resultCar;
         }
-
+        return fetchCarResult;
     }
 }
