@@ -16,4 +16,10 @@ public class ParkingCarProcess {
         parkingCarResult.setErrorMessage("Not enough position.");
         return parkingCarResult;
     }
+
+    public ParkingCarResult parkCarSmart(Car car, List<ParkingLot> parkingLotList) {
+        // get the parkingLot which contains more empty positions
+        ParkingLot parkingLot = parkingLotList.stream().reduce((item, items) -> item.getParkingCarTicket().size() > items.getParkingCarTicket().size()? items : item).orElse(null);
+        return parkingLot.park(car);
+    }
 }

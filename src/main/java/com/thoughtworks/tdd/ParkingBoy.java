@@ -23,4 +23,12 @@ public class ParkingBoy {
     public FetchCarResult fetch(Ticket ticket) {
         return fetchCarProcess.getCar(ticket, parkingLotList);
     }
+
+    public ParkingCarProcess getParkingCarProcess() {
+        return parkingCarProcess;
+    }
+
+    public List<ParkingLot> getParkingLotList() {
+        return parkingLotList;
+    }
 }

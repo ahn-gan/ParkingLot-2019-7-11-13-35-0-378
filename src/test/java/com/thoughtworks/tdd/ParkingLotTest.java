@@ -226,4 +226,37 @@ public class ParkingLotTest {
         Assertions.assertNotNull(parkingCarResult.getTicket());
     }
 
+    /*
+     * *****************Story 4 **************************************
+     * */
+
+    @Test
+    public void should_park_car_to_second_parking_lot_by_smart_boy_when_second_parking_lot_contains_more_empty_positions() {
+        // given
+        Car car = new Car();
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(firstParkingLot);
+        parkingLots.add(secondParkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        // when
+        // park 10 cars by parkingBoy to the firstParkingLot
+        for (int i = 0; i < 6; i++) {
+            parkingBoy.park(new Car());
+        }
+
+        // park car by smartParkingBoy to the secondParkingLot
+        ParkingCarResult parkingCarResult = smartParkingBoy.park(car);
+
+        // then
+        Assertions.assertEquals(6, firstParkingLot.getParkingCarTicket().size());
+        Assertions.assertEquals(1, secondParkingLot.getParkingCarTicket().size());
+        // the firstParkingLot not exists the car parked by smartParkingBoy
+        Assertions.assertFalse(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+        // the secondParkingLot exists the car parked by smartParkingBoy
+        Assertions.assertTrue(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+    }
 }
