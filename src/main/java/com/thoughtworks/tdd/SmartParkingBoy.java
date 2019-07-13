@@ -10,6 +10,6 @@ public class SmartParkingBoy extends ParkingBoy {
 
     @Override
     public ParkingCarResult park(Car car) {
-        return this.getParkingCarProcess().parkCarSmart(car, this.getParkingLotList());
+        return this.getParkingCarProcess().parkCarBySmartParkingBoy(car, this.getParkingLotList());
     }
 }

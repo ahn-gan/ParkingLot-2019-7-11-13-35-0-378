@@ -17,9 +17,16 @@ public class ParkingCarProcess {
         return parkingCarResult;
     }
 
-    public ParkingCarResult parkCarSmart(Car car, List<ParkingLot> parkingLotList) {
+    public ParkingCarResult parkCarBySmartParkingBoy(Car car, List<ParkingLot> parkingLotList) {
         // get the parkingLot which contains more empty positions
-        ParkingLot parkingLot = parkingLotList.stream().reduce((item, items) -> item.getParkingCarTicket().size() > items.getParkingCarTicket().size()? items : item).orElse(null);
+        ParkingLot parkingLot = parkingLotList.stream().reduce((parkingLot1, parkingLot2) -> parkingLot1.getParkingCarTicket().size() > parkingLot2.getParkingCarTicket().size()? parkingLot2 : parkingLot1).orElse(null);
+        return parkingLot.park(car);
+    }
+
+    public ParkingCarResult parkCarBySuperSmartParkingBoy(Car car, List<ParkingLot> parkingLotList) {
+        // get the parkingLot which has a larger available position rate (positions available / total capacity)
+        ParkingLot parkingLot = parkingLotList.stream()
+                .reduce((parkingLot1, parkingLot2) -> 1- parkingLot1.getParkingCarTicket().size() / 10 > 1 - parkingLot2.getParkingCarTicket().size() / 10 ? parkingLot1 : parkingLot2).orElse(null);
         return parkingLot.park(car);
     }
 }
