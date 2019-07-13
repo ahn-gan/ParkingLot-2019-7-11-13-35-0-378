@@ -20,4 +20,24 @@ public class ParkingLotTest {
         // then
         assertSame(car, fetchCar);
     }
+
+    @Test
+    public void should_multiple_cars_when_park_to_parking_lot_then_get_them_back() {
+        // given
+        Car firstCar = new Car();
+        Car secondCar = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        // when
+        Ticket firstTicket = parkingBoy.park(firstCar);
+        Car fetchFirstCar = parkingBoy.fetch(firstTicket);
+
+        Ticket secondTicket = parkingBoy.park(secondCar);
+        Car fetchSecondCar = parkingBoy.fetch(secondTicket);
+
+        // then
+        assertSame(firstCar, fetchFirstCar);
+        assertSame(secondCar, fetchSecondCar);
+    }
 }
