@@ -60,4 +60,20 @@ public class ParkingLotTest {
         });
     }
 
+    @Test
+    public void should_not_fetch_car_when_no_ticket() {
+        // given
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+
+        // when
+        Ticket ticket = parkingBoy.park(car);
+
+        // then
+        Assertions.assertThrows(Exception.class, () -> {
+            Car fetchCar = parkingBoy.fetch(null);
+        });
+    }
+
 }
