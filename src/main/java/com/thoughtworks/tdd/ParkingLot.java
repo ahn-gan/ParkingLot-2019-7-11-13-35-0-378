@@ -10,18 +10,17 @@ public class ParkingLot {
         this.parkingCarTicket = new HashMap<>(10);
     }
 
+    public HashMap<Ticket, Car> getParkingCarTicket() {
+        return parkingCarTicket;
+    }
+
     // park car and return ticket
     public ParkingCarResult park(Car car) {
         ParkingCarResult parkingCarResult = new ParkingCarResult();
         if (null != car) {
-            if (parkingCarTicket.size() < 10) {
-                Ticket ticket = new Ticket();
-                parkingCarTicket.put(ticket, car);
-                parkingCarResult.setTicket(ticket);
-            } else {
-                // parking lot has no position
-                parkingCarResult.setErrorMessage("Not enough position.");
-            }
+            Ticket ticket = new Ticket();
+            parkingCarTicket.put(ticket, car);
+            parkingCarResult.setTicket(ticket);
         } else {
             // car is null
             parkingCarResult.setErrorMessage("Car is null.");
@@ -32,19 +31,9 @@ public class ParkingLot {
     // fetch car when given ticket
     public FetchCarResult getCar(Ticket ticket) {
         FetchCarResult fetchCarResult = new FetchCarResult();
-        if (null != ticket) {
-            Car resultCar = parkingCarTicket.get(ticket);
-            if (resultCar == null) {
-                // ticket is wrong
-                fetchCarResult.setErrormessage("Unrecognized parking ticket.");
-            } else {
-                fetchCarResult.setCar(resultCar);
-                parkingCarTicket.remove(ticket);
-            }
-        } else {
-            // no ticket
-            fetchCarResult.setErrormessage("Please provide your parking ticket.");
-        }
+        Car resultCar = parkingCarTicket.get(ticket);
+        fetchCarResult.setCar(resultCar);
+        parkingCarTicket.remove(ticket);
         return fetchCarResult;
     }
 }
