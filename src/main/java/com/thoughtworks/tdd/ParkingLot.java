@@ -26,14 +26,19 @@ public class ParkingLot {
 
     // fetch car when given ticket
     public FetchCarResult getCar(Ticket ticket) throws Exception {
-        Car resultCar = parkingCarTicket.get(ticket);
         FetchCarResult fetchCarResult = new FetchCarResult();
-        if (resultCar == null) {
-            fetchCarResult.setErrormessage("Unrecognized parking ticket.");
-//            throw new CustomException("Unrecognized parking ticket.");
+        if (null != ticket) {
+            Car resultCar = parkingCarTicket.get(ticket);
+            if (resultCar == null) {
+                // ticket is wrong
+                fetchCarResult.setErrormessage("Unrecognized parking ticket.");
+            } else {
+                fetchCarResult.setCar(resultCar);
+                parkingCarTicket.remove(ticket);
+            }
         } else {
-            fetchCarResult.setCar(resultCar);
-            parkingCarTicket.remove(ticket);
+            // no ticket
+            fetchCarResult.setErrormessage("Please provide your parking ticket.");
         }
         return fetchCarResult;
     }
