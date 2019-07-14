@@ -363,4 +363,45 @@ public class ParkingLotTest {
 
         Assertions.assertFalse(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
     }
+
+    @Test
+    public void should_fetch_car_by_parking_boy_when_manager_specify_parking_boy_to_fetch_from_parking_lot_managed_by_that_parking_boy() {
+        // given
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+
+        // add firstManager for firstParkingLot
+        ParkingLotManager firstManager = new ParkingLotManager();
+        firstManager.setParkingLot(firstParkingLot);
+
+        // add secondManager for secondParkingLot
+        ParkingLotManager secondManager = new ParkingLotManager();
+        secondManager.setParkingLot(secondParkingLot);
+
+        // add a car to firstParkingLot
+        firstParkingLot.getParkingCarTicket().put(new Ticket(), new Car());
+
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(secondParkingLot);
+
+        // build parkingBoy
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+
+        // add the parkingBoy in secondManager's parkingBoyList
+        secondManager.getParkingBoyList().add(parkingBoy);
+
+        Car car = new Car();
+
+        // when
+        // park car
+        ParkingCarResult parkingCarResult = secondManager.specifyParkingBoyToPark(parkingBoy, car);
+
+        // fetch car
+        FetchCarResult fetchCarResult = secondManager.specifyParkingBoyToFetch(parkingBoy, parkingCarResult.getTicket());
+
+        // then
+        Assertions.assertSame(car, fetchCarResult.getCar());
+    }
+
+
 }

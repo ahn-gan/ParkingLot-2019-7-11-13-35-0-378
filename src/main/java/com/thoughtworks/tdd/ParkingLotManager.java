@@ -31,4 +31,11 @@ public class ParkingLotManager {
     public void setParkingLot(ParkingLot parkingLot) {
         this.parkingLot = parkingLot;
     }
+
+    public FetchCarResult specifyParkingBoyToFetch(ParkingBoy parkingBoy, Ticket ticket) {
+        if (parkingBoyList.contains(parkingBoy))
+            return parkingBoy.fetch(ticket);
+        else
+            return new FetchCarResult();
+    }
 }
