@@ -9,8 +9,14 @@ public class ParkingLotManager {
 
     private List<ParkingBoy> parkingBoyList;
 
+    private ParkingCarProcess parkingCarProcess;
+
+    private FetchCarProcess fetchCarProcess;
+
     public ParkingLotManager() {
         this.parkingBoyList = new ArrayList<>();
+        this.parkingCarProcess = new ParkingCarProcess();
+        this.fetchCarProcess = new FetchCarProcess();
     }
 
     public List<ParkingBoy> getParkingBoyList() {
@@ -37,5 +43,13 @@ public class ParkingLotManager {
             return parkingBoy.fetch(ticket);
         else
             return new FetchCarResult();
+    }
+
+    public ParkingCarResult parkCar(Car car) {
+        return parkingCarProcess.parkCarByManager(car, parkingLot);
+    }
+
+    public FetchCarResult fetchCar(Ticket ticket) {
+        return fetchCarProcess.fetchCarByManager(ticket, parkingLot);
     }
 }

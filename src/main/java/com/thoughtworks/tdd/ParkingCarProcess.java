@@ -29,4 +29,14 @@ public class ParkingCarProcess {
                 .reduce((parkingLot1, parkingLot2) -> 1- parkingLot1.getParkingCarTicket().size() / 10 > 1 - parkingLot2.getParkingCarTicket().size() / 10 ? parkingLot1 : parkingLot2).orElse(null);
         return parkingLot.park(car);
     }
+
+    public ParkingCarResult parkCarByManager(Car car, ParkingLot parkingLot) {
+        if (parkingLot.getParkingCarTicket().size() < 10) {
+            return parkingLot.park(car);
+        }
+        // the parkingLot have no position
+        ParkingCarResult parkingCarResult = new ParkingCarResult();
+        parkingCarResult.setErrorMessage("Not enough position.");
+        return parkingCarResult;
+    }
 }

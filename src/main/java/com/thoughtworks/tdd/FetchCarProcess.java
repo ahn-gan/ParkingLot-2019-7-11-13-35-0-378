@@ -21,4 +21,20 @@ public class FetchCarProcess {
         }
         return fetchCarResult;
     }
+
+    public FetchCarResult fetchCarByManager(Ticket ticket, ParkingLot parkingLot) {
+        FetchCarResult fetchCarResult = new FetchCarResult();
+        if (null != ticket) {
+            if (parkingLot.getParkingCarTicket().containsKey(ticket)) {
+                return parkingLot.getCar(ticket);
+            }
+            // the ticket is wrong
+            // the parkingLot have no car for the ticket
+            fetchCarResult.setErrormessage("Unrecognized parking ticket.");
+        } else {
+            // no ticket
+            fetchCarResult.setErrormessage("Please provide your parking ticket.");
+        }
+        return fetchCarResult;
+    }
 }

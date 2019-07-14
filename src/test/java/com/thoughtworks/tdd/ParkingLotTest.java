@@ -403,5 +403,26 @@ public class ParkingLotTest {
         Assertions.assertSame(car, fetchCarResult.getCar());
     }
 
+    @Test
+    public void should_return_car_when_manager_park_car_to_parking_lot_then_get_it_back() {
+        // given
+        ParkingLot parkingLot = new ParkingLot();
+
+        // add firstManager for firstParkingLot
+        ParkingLotManager parkingLotManager = new ParkingLotManager();
+        parkingLotManager.setParkingLot(parkingLot);
+
+        Car car = new Car();
+
+        // when
+        // park car by parkingLotManager
+        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);
+
+        // fetch car
+        FetchCarResult fetchCarResult = parkingLotManager.fetchCar(parkingCarResult.getTicket());
+
+        // then
+        Assertions.assertSame(car, fetchCarResult.getCar());
+    }
 
 }
