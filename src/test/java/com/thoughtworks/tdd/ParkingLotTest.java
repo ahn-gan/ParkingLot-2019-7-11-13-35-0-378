@@ -425,4 +425,30 @@ public class ParkingLotTest {
         Assertions.assertSame(car, fetchCarResult.getCar());
     }
 
+    @Test
+    public void should_park_car_to_first_parking_lot_managed_by_manager_when_manager_park_car() {
+        // given
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+
+        // add firstManager for firstParkingLot
+        ParkingLotManager parkingLotManager = new ParkingLotManager();
+        parkingLotManager.setParkingLot(firstParkingLot);
+
+        // add a car to secondParkingLot
+        secondParkingLot.getParkingCarTicket().put(new Ticket(), new Car());
+
+        Car car = new Car();
+
+        // when
+        // park car by parkingLotManager
+        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);
+
+        // then
+        // park car to firstParkingLot
+        Assertions.assertTrue(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+        // secondParkingLot doesn't exist the car parked by manager because he doesn't managed the secondParkingLot
+        Assertions.assertFalse(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+    }
+
 }
