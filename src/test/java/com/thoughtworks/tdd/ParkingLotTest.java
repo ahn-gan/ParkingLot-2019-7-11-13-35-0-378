@@ -451,4 +451,20 @@ public class ParkingLotTest {
         Assertions.assertFalse(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
     }
 
+    @Test
+    public void should_return_unrecognized_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_ticket_is_wrong() {
+        // given
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingLotManager parkingLotManager = new ParkingLotManager();
+        parkingLotManager.setParkingLot(parkingLot);
+
+        // when
+        parkingLotManager.parkCar(car);
+        FetchCarResult fetchCarResult = parkingLotManager.fetchCar(new Ticket());
+
+        // then
+        Assertions.assertEquals(null, fetchCarResult.getCar());
+        Assertions.assertEquals("Unrecognized parking ticket.", fetchCarResult.getErrormessage());
+    }
 }
