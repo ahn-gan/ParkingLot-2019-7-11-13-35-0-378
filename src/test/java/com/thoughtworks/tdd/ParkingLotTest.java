@@ -15,7 +15,7 @@ public class ParkingLotTest {
      * */
 
     @Test
-    public void should_return_car_when_park_car_to_parking_lot_then_get_it_back() throws Exception {
+    public void should_return_car_when_park_car_to_parking_lot_then_get_it_back() {
         // given
         Car car = new Car();
         List<ParkingLot> parkingLots = new ArrayList<>();
@@ -101,7 +101,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_no_fetch_car_when_ticket_has_already_been_used() throws Exception {
+    public void should_no_fetch_car_when_ticket_has_already_been_used() {
         // given
         Car car = new Car();
         List<ParkingLot> parkingLots = new ArrayList<>();
@@ -127,11 +127,12 @@ public class ParkingLotTest {
         parkingLots.add(new ParkingLot());
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
 
-        // when
         // parking 10 cars
         for (int i = 0; i < 10; i++) {
             parkingBoy.park(new Car());
         }
+
+        // when
 
         ParkingCarResult parkingCarResult = parkingBoy.park(car);
 
@@ -144,7 +145,7 @@ public class ParkingLotTest {
     * */
 
     @Test
-    public void should_return_unrecognized_parking_ticket_message_for_fetching_car_when_ticket_is_wrong() throws Exception {
+    public void should_return_unrecognized_parking_ticket_message_for_fetching_car_when_ticket_is_wrong() {
         // given
         Car car = new Car();
         List<ParkingLot> parkingLots = new ArrayList<>();
@@ -161,7 +162,7 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_please_provide_your_parking_ticket_message_for_fetching_car_when_no_ticket() throws Exception {
+    public void should_return_please_provide_your_parking_ticket_message_for_fetching_car_when_no_ticket() {
         // given
         Car car = new Car();
         List<ParkingLot> parkingLots = new ArrayList<>();
@@ -179,18 +180,19 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void should_return_not_enough_position_for_parking_car_when_parking_lot_has_no_position() throws Exception {
+    public void should_return_not_enough_position_for_parking_car_when_parking_lot_has_no_position() {
         // given
         Car car = new Car();
         List<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(new ParkingLot());
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
 
-        // when
         // parking 10 cars
         for (int i = 0; i < 10; i++) {
             parkingBoy.park(new Car());
         }
+
+        // when
         ParkingCarResult parkingCarResult = parkingBoy.park(car);
 
         // then
@@ -484,5 +486,26 @@ public class ParkingLotTest {
         // then
         Assertions.assertEquals(null, fetchCarResult.getCar());
         Assertions.assertEquals("Please provide your parking ticket.", fetchCarResult.getErrormessage());
+    }
+
+    @Test
+    public void should_return_not_enough_position_for_parking_car_to_parking_lot_manager_when_parking_lot_has_no_position() {
+        // given
+        Car car = new Car();
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingLotManager parkingLotManager = new ParkingLotManager();
+        parkingLotManager.setParkingLot(parkingLot);
+
+        // add 10 cars to parkingLot
+        for (int i = 0; i < 10; i++) {
+            parkingLot.getParkingCarTicket().put(new Ticket(), new Car());
+        }
+
+        // when
+        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);;
+
+        // then
+        Assertions.assertEquals(null, parkingCarResult.getTicket());
+        Assertions.assertEquals("Not enough position.", parkingCarResult.getErrorMessage());
     }
 }
