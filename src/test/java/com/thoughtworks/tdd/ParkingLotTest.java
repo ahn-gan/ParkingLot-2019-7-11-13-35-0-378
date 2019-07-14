@@ -322,4 +322,45 @@ public class ParkingLotTest {
         // the secondParkingLot exists the car parked by smartParkingBoy
         Assertions.assertTrue(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
     }
+
+    /*
+     * *****************Story 6 **************************************
+     * */
+    @Test
+    public void should_park_car_in_second_parking_lot_when_manager_specify_parking_boy_to_parking_lot_managed_by_that_parking_boy() {
+        // given
+        ParkingLot firstParkingLot = new ParkingLot();
+        ParkingLot secondParkingLot = new ParkingLot();
+
+        // add firstManager for firstParkingLot
+        ParkingLotManager firstManager = new ParkingLotManager();
+        firstManager.setParkingLot(firstParkingLot);
+
+        // add secondManager for secondParkingLot
+        ParkingLotManager secondManager = new ParkingLotManager();
+        secondManager.setParkingLot(secondParkingLot);
+
+        // add a car to firstParkingLot
+        firstParkingLot.getParkingCarTicket().put(new Ticket(), new Car());
+
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(secondParkingLot);
+
+        // build parkingBoy
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+
+        // add the parkingBoy in secondManager's parkingBoyList
+        secondManager.getParkingBoyList().add(parkingBoy);
+
+        Car car = new Car();
+
+        // when
+        ParkingCarResult parkingCarResult = secondManager.specifyParkingBoyToPark(parkingBoy, car);
+
+        // then
+        // the car park in secondParkingLot by parkingBoy
+        Assertions.assertTrue(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+
+        Assertions.assertFalse(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+    }
 }
