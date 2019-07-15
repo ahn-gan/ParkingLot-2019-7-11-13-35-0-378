@@ -81,61 +81,74 @@ public class ParkingLotManagerTest {
         // then
         Assertions.assertTrue(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
     }
-//
-//    @Test
-//    public void should_return_unrecognized_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_ticket_is_wrong() {
-//        // given
-//        Car car = new Car();
-//        ParkingLot parkingLot = new ParkingLot(10);
-//        ParkingLotManager parkingLotManager = new ParkingLotManager();
-//        parkingLotManager.setParkingLot(parkingLot);
-//
-//        // when
-//        parkingLotManager.parkCar(car);
-//        FetchCarResult fetchCarResult = parkingLotManager.fetchCar(new Ticket());
-//
-//        // then
-//        Assertions.assertEquals(null, fetchCarResult.getCar());
-//        Assertions.assertEquals("Unrecognized parking ticket.", fetchCarResult.getErrormessage());
-//    }
-//
-//    @Test
-//    public void should_return_please_provide_your_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_no_ticket() {
-//        // given
-//        Car car = new Car();
-//        ParkingLot parkingLot = new ParkingLot(10);
-//        ParkingLotManager parkingLotManager = new ParkingLotManager();
-//        parkingLotManager.setParkingLot(parkingLot);
-//
-//        // when
-//        parkingLotManager.parkCar(car);
-//
-//        FetchCarResult fetchCarResult = parkingLotManager.fetchCar(null);
-//
-//        // then
-//        Assertions.assertEquals(null, fetchCarResult.getCar());
-//        Assertions.assertEquals("Please provide your parking ticket.", fetchCarResult.getErrormessage());
-//    }
-//
-//    @Test
-//    public void should_return_not_enough_position_for_parking_car_to_parking_lot_manager_when_parking_lot_has_no_position() {
-//        // given
-//        Car car = new Car();
-//        int capacity = 10;
-//        ParkingLot parkingLot = new ParkingLot(capacity);
-//        ParkingLotManager parkingLotManager = new ParkingLotManager();
-//        parkingLotManager.setParkingLot(parkingLot);
-//
-//        // add 10 cars to parkingLot
-//        for (int i = 0; i < capacity; i++) {
-//            parkingLot.getParkingCarTicket().put(new Ticket(), new Car());
-//        }
-//
-//        // when
-//        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);;
-//
-//        // then
-//        Assertions.assertEquals(null, parkingCarResult.getTicket());
-//        Assertions.assertEquals("Not enough position.", parkingCarResult.getErrorMessage());
-//    }
+
+    @Test
+    public void should_return_unrecognized_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_ticket_is_wrong() {
+        // given
+        ParkingLot parkingLot = new ParkingLot(10);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(parkingLot);
+
+        ParkingLotManager parkingLotManager = new ParkingLotManager();
+        parkingLotManager.setParkingLots(parkingLots);
+
+        Car car = new Car();
+
+        // when
+        parkingLotManager.parkCar(car);
+
+        FetchCarResult fetchCarResult = parkingLotManager.fetchCar(new Ticket());
+
+        // then
+        Assertions.assertNull(fetchCarResult.getCar());
+        Assertions.assertEquals("Unrecognized parking ticket.", fetchCarResult.getErrormessage());
+    }
+
+    @Test
+    public void should_return_please_provide_your_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_no_ticket() {
+        // given
+        ParkingLot parkingLot = new ParkingLot(10);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(parkingLot);
+
+        ParkingLotManager parkingLotManager = new ParkingLotManager();
+        parkingLotManager.setParkingLots(parkingLots);
+
+        Car car = new Car();
+
+        // when
+        parkingLotManager.parkCar(car);
+
+        FetchCarResult fetchCarResult = parkingLotManager.fetchCar(null);
+
+        // then
+        Assertions.assertNull(fetchCarResult.getCar());
+        Assertions.assertEquals("Please provide your parking ticket.", fetchCarResult.getErrormessage());
+    }
+
+    @Test
+    public void should_return_not_enough_position_for_parking_car_to_parking_lot_manager_when_parking_lot_has_no_position() {
+        // given
+        int capacity = 10;
+        ParkingLot parkingLot = new ParkingLot(capacity);
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(parkingLot);
+
+        ParkingLotManager parkingLotManager = new ParkingLotManager();
+        parkingLotManager.setParkingLots(parkingLots);
+
+        Car car = new Car();
+
+        // add 10 cars to parkingLot
+        for (int i = 0; i < capacity; i++) {
+            parkingLot.getParkingCarTicket().put(new Ticket(), new Car());
+        }
+
+        // when
+        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);;
+
+        // then
+        Assertions.assertNull(parkingCarResult.getTicket());
+        Assertions.assertEquals("Not enough position.", parkingCarResult.getErrorMessage());
+    }
 }
