@@ -1,5 +1,7 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.tdd.exception.CustomException;
+
 import java.util.HashMap;
 
 public class ParkingLot {
@@ -26,7 +28,7 @@ public class ParkingLot {
     }
 
     // park car and return ticket
-    public ParkingCarResult park(Car car) {
+    public ParkingCarResult park(Car car) throws CustomException {
         ParkingCarResult parkingCarResult = new ParkingCarResult();
         if (null != car) {
             Ticket ticket = new Ticket();
@@ -34,7 +36,7 @@ public class ParkingLot {
             parkingCarResult.setTicket(ticket);
         } else {
             // car is null
-            parkingCarResult.setErrorMessage("Car is null.");
+            throw new CustomException("Car is null.");
         }
         return parkingCarResult;
     }

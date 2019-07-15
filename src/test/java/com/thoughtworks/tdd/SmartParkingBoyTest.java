@@ -1,5 +1,6 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.tdd.exception.CustomException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class SmartParkingBoyTest {
      * *****************Story 4 **************************************
      * */
     @Test
-    public void should_park_car_to_second_parking_lot_by_smart_boy_when_second_parking_lot_contains_more_empty_positions() {
+    public void should_park_car_to_second_parking_lot_by_smart_boy_when_second_parking_lot_contains_more_empty_positions() throws CustomException {
         // given
         // park 6 cars by parkingBoy to the firstParkingLot
         for (int i = 0; i < 6; i++) {
@@ -56,7 +57,7 @@ public class SmartParkingBoyTest {
     }
 
     @Test
-    public void should_park_cars_alternately_to_two_parking_lot_by_smart_parking_boy_when_two_parking_lots_are_empty() {
+    public void should_park_cars_alternately_to_two_parking_lot_by_smart_parking_boy_when_two_parking_lots_are_empty() throws CustomException {
         // given
         Car secondCar = new Car();
 

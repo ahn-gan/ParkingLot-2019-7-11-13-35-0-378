@@ -1,5 +1,7 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.tdd.exception.CustomException;
+
 import java.util.List;
 
 public class SuperSmartParkingBoy extends ParkingBoy {
@@ -9,7 +11,7 @@ public class SuperSmartParkingBoy extends ParkingBoy {
     }
 
     @Override
-    public ParkingCarResult park(Car car) {
+    public ParkingCarResult park(Car car) throws CustomException {
         return this.getParkingCarProcess().parkCarBySuperSmartParkingBoy(car, this.getParkingLotList());
     }
 

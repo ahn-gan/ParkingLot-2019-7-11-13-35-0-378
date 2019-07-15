@@ -1,5 +1,7 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.tdd.exception.CustomException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class ParkingLotManager extends ParkingBoy {
     }
 
     // todo refactor
-    public ParkingCarResult specifyParkingBoyToPark(ParkingBoy parkingBoy, Car car) {
+    public ParkingCarResult specifyParkingBoyToPark(ParkingBoy parkingBoy, Car car) throws CustomException {
         if (parkingBoyList.contains(parkingBoy))
             return parkingBoy.park(car);
         else
@@ -38,19 +40,19 @@ public class ParkingLotManager extends ParkingBoy {
         this.parkingBoyList.add(parkingBoy);
     }
 
-    public FetchCarResult specifyParkingBoyToFetch(ParkingBoy parkingBoy, Ticket ticket) {
+    public FetchCarResult specifyParkingBoyToFetch(ParkingBoy parkingBoy, Ticket ticket) throws CustomException {
         if (parkingBoyList.contains(parkingBoy))
             return parkingBoy.fetch(ticket);
         else
             return new FetchCarResult();
     }
 
-    public ParkingCarResult parkCar(Car car) {
+    public ParkingCarResult parkCar(Car car) throws CustomException {
         super.setParkingLotList(this.parkingLots);
         return super.park(car);
     }
 
-    public FetchCarResult fetchCar(Ticket ticket) {
+    public FetchCarResult fetchCar(Ticket ticket) throws CustomException {
         return super.fetch(ticket);
     }
 }

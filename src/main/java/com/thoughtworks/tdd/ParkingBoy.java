@@ -1,5 +1,7 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.tdd.exception.CustomException;
+
 import java.util.List;
 
 public class ParkingBoy {
@@ -21,11 +23,11 @@ public class ParkingBoy {
         this.fetchCarProcess = new FetchCarProcess();
     }
 
-    public ParkingCarResult park(Car car) {
+    public ParkingCarResult park(Car car) throws CustomException {
         return parkingCarProcess.parkCar(car, parkingLotList);
     }
 
-    public FetchCarResult fetch(Ticket ticket) {
+    public FetchCarResult fetch(Ticket ticket) throws CustomException {
         return fetchCarProcess.getCar(ticket, parkingLotList);
     }
 

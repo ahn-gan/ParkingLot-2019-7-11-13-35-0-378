@@ -1,5 +1,6 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.tdd.exception.CustomException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class ParkingLotManagerTest {
      * *****************Story 6 **************************************
      * */
     @Test
-    public void should_park_car_in_second_parking_lot_when_manager_specify_parking_boy_to_parking_lot_managed_by_that_parking_boy() {
+    public void should_park_car_in_second_parking_lot_when_manager_specify_parking_boy_to_parking_lot_managed_by_that_parking_boy() throws CustomException {
         // given
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
 
@@ -52,7 +53,7 @@ public class ParkingLotManagerTest {
     }
 
     @Test
-    public void should_return_car_when_manager_park_car_to_parking_lot_then_get_it_back() {
+    public void should_return_car_when_manager_park_car_to_parking_lot_then_get_it_back() throws CustomException {
         // given
 
         // when
@@ -66,7 +67,7 @@ public class ParkingLotManagerTest {
     }
 
     @Test
-    public void should_park_car_to_first_parking_lot_managed_by_manager_when_manager_park_car() {
+    public void should_park_car_to_first_parking_lot_managed_by_manager_when_manager_park_car() throws CustomException {
         // given
 
         // when
@@ -77,28 +78,31 @@ public class ParkingLotManagerTest {
     }
 
     @Test
-    public void should_return_unrecognized_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_ticket_is_wrong() {
+    public void should_return_unrecognized_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_ticket_is_wrong() throws CustomException {
 
-        // when
+        // given
         parkingLotManager.parkCar(car);
 
-        FetchCarResult fetchCarResult = parkingLotManager.fetchCar(new Ticket());
+        // when
+        CustomException e = Assertions.assertThrows(CustomException.class, () -> {
+            parkingLotManager.fetchCar(new Ticket());
+        });
 
         // then
-        Assertions.assertNull(fetchCarResult.getCar());
-        Assertions.assertEquals("Unrecognized parking ticket.", fetchCarResult.getErrormessage());
+        Assertions.assertEquals("Unrecognized parking ticket.", e.getMessage());
     }
 
     @Test
-    public void should_return_please_provide_your_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_no_ticket() {
-        // when
+    public void should_return_please_provide_your_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_no_ticket() throws CustomException {
+        // given
         parkingLotManager.parkCar(car);
-
-        FetchCarResult fetchCarResult = parkingLotManager.fetchCar(null);
+        // when
+        CustomException e = Assertions.assertThrows(CustomException.class, () -> {
+            parkingLotManager.fetchCar(null);
+        });
 
         // then
-        Assertions.assertNull(fetchCarResult.getCar());
-        Assertions.assertEquals("Please provide your parking ticket.", fetchCarResult.getErrormessage());
+        Assertions.assertEquals("Please provide your parking ticket.", e.getMessage());
     }
 
     @Test
@@ -110,10 +114,11 @@ public class ParkingLotManagerTest {
         }
 
         // when
-        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);
+        CustomException e = Assertions.assertThrows(CustomException.class, () -> {
+            parkingLotManager.parkCar(car);
+        });
 
         // then
-        Assertions.assertNull(parkingCarResult.getTicket());
-        Assertions.assertEquals("Not enough position.", parkingCarResult.getErrorMessage());
+        Assertions.assertEquals("Not enough position.", e.getMessage());
     }
 }
