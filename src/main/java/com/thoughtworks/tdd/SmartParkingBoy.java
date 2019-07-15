@@ -11,7 +11,7 @@ public class SmartParkingBoy extends ParkingBoy {
     }
 
     @Override
-    public ParkingCarResult park(Car car) throws CustomException {
+    public Ticket park(Car car) throws CustomException {
         return this.getParkingCarProcess().parkCarBySmartParkingBoy(car, this.getParkingLotList());
     }
 }

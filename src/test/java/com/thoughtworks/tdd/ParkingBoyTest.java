@@ -40,11 +40,11 @@ public class ParkingBoyTest {
     @Test
     public void should_return_car_when_park_car_to_parking_lot_then_get_it_back() throws CustomException {
         // when
-        ParkingCarResult parkingCarResult = parkingBoy.park(car);
-        FetchCarResult fetchCarResult = parkingBoy.fetch(parkingCarResult.getTicket());
+        Ticket parkingTicket = parkingBoy.park(car);
+        Car fetchCar = parkingBoy.fetch(parkingTicket);
 
         // then
-        assertSame(car, fetchCarResult.getCar());
+        assertSame(car, fetchCar);
     }
 
     @Test
@@ -65,15 +65,15 @@ public class ParkingBoyTest {
         Car secondCar = new Car();
 
         // when
-        ParkingCarResult firstParkingResult = parkingBoy.park(car);
-        FetchCarResult fetchedFirstCarResult = parkingBoy.fetch(firstParkingResult.getTicket());
+        Ticket firstParkingResult = parkingBoy.park(car);
+        Car fetchedFirstCar = parkingBoy.fetch(firstParkingResult);
 
-        ParkingCarResult secondParkingResult = parkingBoy.park(secondCar);
-        FetchCarResult fetchedSecondCarResult = parkingBoy.fetch(secondParkingResult.getTicket());
+        Ticket secondParkingResult = parkingBoy.park(secondCar);
+        Car fetchedSecondCar = parkingBoy.fetch(secondParkingResult);
 
         // then
-        assertSame(car, fetchedFirstCarResult.getCar());
-        assertSame(secondCar, fetchedSecondCarResult.getCar());
+        assertSame(car, fetchedFirstCar);
+        assertSame(secondCar, fetchedSecondCar);
     }
 
     @Test
@@ -107,12 +107,12 @@ public class ParkingBoyTest {
     @Test
     public void should_no_fetch_car_when_ticket_has_already_been_used() throws CustomException {
         // when
-        ParkingCarResult parkingCarResult = parkingBoy.park(car);
-        parkingBoy.fetch(parkingCarResult.getTicket());
+        Ticket parkingCarResult = parkingBoy.park(car);
+        parkingBoy.fetch(parkingCarResult);
 
         // when
         CustomException e = Assertions.assertThrows(CustomException.class, () -> {
-            parkingBoy.fetch(parkingCarResult.getTicket());
+            parkingBoy.fetch(parkingCarResult);
         });
 
         // then
@@ -200,10 +200,10 @@ public class ParkingBoyTest {
 
         // when
         // parking the 11th car
-        ParkingCarResult parkingCarResult = parkingBoy.park(car);
+        Ticket parkingCarResult = parkingBoy.park(car);
 
         // then
-        Assertions.assertNotNull(parkingCarResult.getTicket());
+        Assertions.assertNotNull(parkingCarResult);
     }
 
 }

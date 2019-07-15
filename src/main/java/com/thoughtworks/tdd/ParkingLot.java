@@ -28,25 +28,21 @@ public class ParkingLot {
     }
 
     // park car and return ticket
-    public ParkingCarResult park(Car car) throws CustomException {
-        ParkingCarResult parkingCarResult = new ParkingCarResult();
+    public Ticket park(Car car) throws CustomException {
         if (null != car) {
             Ticket ticket = new Ticket();
             parkingCarTicket.put(ticket, car);
-            parkingCarResult.setTicket(ticket);
+            return ticket;
         } else {
             // car is null
             throw new CustomException("Car is null.");
         }
-        return parkingCarResult;
     }
 
     // fetch car when given ticket
-    public FetchCarResult getCar(Ticket ticket) {
-        FetchCarResult fetchCarResult = new FetchCarResult();
+    public Car getCar(Ticket ticket) {
         Car resultCar = parkingCarTicket.get(ticket);
-        fetchCarResult.setCar(resultCar);
         parkingCarTicket.remove(ticket);
-        return fetchCarResult;
+        return resultCar;
     }
 }

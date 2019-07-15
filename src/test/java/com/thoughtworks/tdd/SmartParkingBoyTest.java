@@ -47,13 +47,13 @@ public class SmartParkingBoyTest {
 
         // when
         // park car by smartParkingBoy to the secondParkingLot
-        ParkingCarResult parkingCarResult = smartParkingBoy.park(car);
+        Ticket parkingCarResult = smartParkingBoy.park(car);
 
         // then
         Assertions.assertEquals(6, firstParkingLot.getParkingCarTicket().size());
         Assertions.assertEquals(1, secondParkingLot.getParkingCarTicket().size());
-        Assertions.assertFalse(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
-        Assertions.assertTrue(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+        Assertions.assertFalse(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult));
+        Assertions.assertTrue(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult));
     }
 
     @Test
@@ -63,15 +63,15 @@ public class SmartParkingBoyTest {
 
         // when
         // park car by smartParkingBoy to the secondParkingLot
-        ParkingCarResult firstParkingCarResult = smartParkingBoy.park(car);
-        ParkingCarResult secondParkingCarResult = smartParkingBoy.park(secondCar);
+        Ticket firstParkingCarResult = smartParkingBoy.park(car);
+        Ticket secondParkingCarResult = smartParkingBoy.park(secondCar);
 
         // then
         Assertions.assertEquals(1, firstParkingLot.getParkingCarTicket().size());
         Assertions.assertEquals(1, secondParkingLot.getParkingCarTicket().size());
-        Assertions.assertTrue(firstParkingLot.getParkingCarTicket().containsKey(firstParkingCarResult.getTicket()));
-        Assertions.assertFalse(firstParkingLot.getParkingCarTicket().containsKey(secondParkingCarResult.getTicket()));
-        Assertions.assertFalse(secondParkingLot.getParkingCarTicket().containsKey(firstParkingCarResult.getTicket()));
-        Assertions.assertTrue(secondParkingLot.getParkingCarTicket().containsKey(secondParkingCarResult.getTicket()));
+        Assertions.assertTrue(firstParkingLot.getParkingCarTicket().containsKey(firstParkingCarResult));
+        Assertions.assertFalse(firstParkingLot.getParkingCarTicket().containsKey(secondParkingCarResult));
+        Assertions.assertFalse(secondParkingLot.getParkingCarTicket().containsKey(firstParkingCarResult));
+        Assertions.assertTrue(secondParkingLot.getParkingCarTicket().containsKey(secondParkingCarResult));
     }
 }

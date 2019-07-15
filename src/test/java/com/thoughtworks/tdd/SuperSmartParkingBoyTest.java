@@ -48,15 +48,15 @@ public class SuperSmartParkingBoyTest {
 
         // when
         // park car by superSmartParkingBoy to the parkingLot which has a larger available position rate (positions available / total capacity
-        ParkingCarResult parkingCarResult = superSmartParkingBoy.park(car);
+        Ticket parkingCarResult = superSmartParkingBoy.park(car);
 
         // then
         Assertions.assertEquals(2, firstParkingLot.getParkingCarTicket().size());
         Assertions.assertEquals(2, secondParkingLot.getParkingCarTicket().size());
         // the firstParkingLot not exists the car parked by smartParkingBoy
-        Assertions.assertFalse(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+        Assertions.assertFalse(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult));
         // the secondParkingLot exists the car parked by smartParkingBoy
-        Assertions.assertTrue(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+        Assertions.assertTrue(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult));
     }
 
 }

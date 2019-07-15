@@ -21,11 +21,11 @@ public class ParkingLotManager extends ParkingBoy {
     }
 
     // todo refactor
-    public ParkingCarResult specifyParkingBoyToPark(ParkingBoy parkingBoy, Car car) throws CustomException {
+    public Ticket specifyParkingBoyToPark(ParkingBoy parkingBoy, Car car) throws CustomException {
         if (parkingBoyList.contains(parkingBoy))
             return parkingBoy.park(car);
         else
-            return new ParkingCarResult();
+            throw new CustomException("ParkingBoy doesn't exist the manager's parkingBoyList");
     }
 
     public void setParkingLots(List<ParkingLot> parkingLots) {
@@ -40,19 +40,18 @@ public class ParkingLotManager extends ParkingBoy {
         this.parkingBoyList.add(parkingBoy);
     }
 
-    public FetchCarResult specifyParkingBoyToFetch(ParkingBoy parkingBoy, Ticket ticket) throws CustomException {
+    public Car specifyParkingBoyToFetch(ParkingBoy parkingBoy, Ticket ticket) throws CustomException {
         if (parkingBoyList.contains(parkingBoy))
             return parkingBoy.fetch(ticket);
-        else
-            return new FetchCarResult();
+        throw new CustomException("ParkingBoy doesn't exist the manager's parkingBoyList");
     }
 
-    public ParkingCarResult parkCar(Car car) throws CustomException {
+    public Ticket parkCar(Car car) throws CustomException {
         super.setParkingLotList(this.parkingLots);
         return super.park(car);
     }
 
-    public FetchCarResult fetchCar(Ticket ticket) throws CustomException {
+    public Car fetchCar(Ticket ticket) throws CustomException {
         return super.fetch(ticket);
     }
 }

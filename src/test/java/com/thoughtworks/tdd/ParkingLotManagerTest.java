@@ -45,11 +45,11 @@ public class ParkingLotManagerTest {
         parkingLotManager.addParkingBoy(parkingBoy);
         
         // when
-        ParkingCarResult parkingCarResult = parkingLotManager.specifyParkingBoyToPark(parkingBoy, car);
-        FetchCarResult fetchCarResult = parkingLotManager.specifyParkingBoyToFetch(parkingBoy, parkingCarResult.getTicket());
+        Ticket parkingCarResult = parkingLotManager.specifyParkingBoyToPark(parkingBoy, car);
+        Car fetchCar = parkingLotManager.specifyParkingBoyToFetch(parkingBoy, parkingCarResult);
 
         // then
-        Assertions.assertSame(car, fetchCarResult.getCar());
+        Assertions.assertSame(car, fetchCar);
     }
 
     @Test
@@ -57,13 +57,13 @@ public class ParkingLotManagerTest {
         // given
 
         // when
-        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);
+        Ticket parkingCarResult = parkingLotManager.parkCar(car);
 
         // fetch car
-        FetchCarResult fetchCarResult = parkingLotManager.fetchCar(parkingCarResult.getTicket());
+        Car fetchCar = parkingLotManager.fetchCar(parkingCarResult);
 
         // then
-        Assertions.assertSame(car, fetchCarResult.getCar());
+        Assertions.assertSame(car, fetchCar);
     }
 
     @Test
@@ -71,10 +71,10 @@ public class ParkingLotManagerTest {
         // given
 
         // when
-        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);
+        Ticket parkingCarResult = parkingLotManager.parkCar(car);
 
         // then
-        Assertions.assertTrue(parkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+        Assertions.assertTrue(parkingLot.getParkingCarTicket().containsKey(parkingCarResult));
     }
 
     @Test

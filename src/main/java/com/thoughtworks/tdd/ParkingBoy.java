@@ -23,11 +23,11 @@ public class ParkingBoy {
         this.fetchCarProcess = new FetchCarProcess();
     }
 
-    public ParkingCarResult park(Car car) throws CustomException {
+    public Ticket park(Car car) throws CustomException {
         return parkingCarProcess.parkCar(car, parkingLotList);
     }
 
-    public FetchCarResult fetch(Ticket ticket) throws CustomException {
+    public Car fetch(Ticket ticket) throws CustomException {
         return fetchCarProcess.getCar(ticket, parkingLotList);
     }
 
