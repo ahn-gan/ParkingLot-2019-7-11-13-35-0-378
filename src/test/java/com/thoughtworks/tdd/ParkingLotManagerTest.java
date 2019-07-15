@@ -59,32 +59,28 @@ public class ParkingLotManagerTest {
         // then
         Assertions.assertSame(car, fetchCarResult.getCar());
     }
-//
-//    @Test
-//    public void should_park_car_to_first_parking_lot_managed_by_manager_when_manager_park_car() {
-//        // given
-//        ParkingLot firstParkingLot = new ParkingLot(10);
-//        ParkingLot secondParkingLot = new ParkingLot(10);
-//
-//        // add firstManager for firstParkingLot
-//        ParkingLotManager parkingLotManager = new ParkingLotManager();
-//        parkingLotManager.setParkingLot(firstParkingLot);
-//
-//        // add a car to secondParkingLot
-//        secondParkingLot.getParkingCarTicket().put(new Ticket(), new Car());
-//
-//        Car car = new Car();
-//
-//        // when
-//        // park car by parkingLotManager
-//        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);
-//
-//        // then
-//        // park car to firstParkingLot
-//        Assertions.assertTrue(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
-//        // secondParkingLot doesn't exist the car parked by manager because he doesn't managed the secondParkingLot
-//        Assertions.assertFalse(secondParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
-//    }
+
+    @Test
+    public void should_park_car_to_first_parking_lot_managed_by_manager_when_manager_park_car() {
+        // given
+        ParkingLot firstParkingLot = new ParkingLot(6);
+
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(firstParkingLot);
+
+        ParkingLotManager parkingLotManager = new ParkingLotManager();
+        parkingLotManager.setParkingLots(parkingLots);
+
+        firstParkingLot.getParkingCarTicket().put(new Ticket(), new Car());
+
+        Car car = new Car();
+
+        // when
+        ParkingCarResult parkingCarResult = parkingLotManager.parkCar(car);
+
+        // then
+        Assertions.assertTrue(firstParkingLot.getParkingCarTicket().containsKey(parkingCarResult.getTicket()));
+    }
 //
 //    @Test
 //    public void should_return_unrecognized_parking_ticket_message_for_fetching_car_to_parking_lot_manager_when_ticket_is_wrong() {
