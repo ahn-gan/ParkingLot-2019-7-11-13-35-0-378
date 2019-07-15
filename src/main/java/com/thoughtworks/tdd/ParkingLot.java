@@ -6,8 +6,19 @@ public class ParkingLot {
 
     private HashMap<Ticket, Car> parkingCarTicket;
 
-    public ParkingLot() {
-        this.parkingCarTicket = new HashMap<>(10);
+    private int capacity;
+
+    public ParkingLot(int capacity) {
+        this.capacity = capacity;
+        this.parkingCarTicket = new HashMap<>(capacity);
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public HashMap<Ticket, Car> getParkingCarTicket() {
