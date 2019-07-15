@@ -16,6 +16,11 @@ public class ParkingBoy {
         this.fetchCarProcess = new FetchCarProcess();
     }
 
+    public ParkingBoy() {
+        this.parkingCarProcess = new ParkingCarProcess();
+        this.fetchCarProcess = new FetchCarProcess();
+    }
+
     public ParkingCarResult park(Car car) {
         return parkingCarProcess.parkCar(car, parkingLotList);
     }
@@ -30,5 +35,9 @@ public class ParkingBoy {
 
     public List<ParkingLot> getParkingLotList() {
         return parkingLotList;
+    }
+
+    public void setParkingLotList(List<ParkingLot> parkingLotList) {
+        this.parkingLotList = parkingLotList;
     }
 }

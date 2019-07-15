@@ -3,20 +3,23 @@ package com.thoughtworks.tdd;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParkingLotManager {
+public class ParkingLotManager extends ParkingBoy {
 
-    private ParkingLot parkingLot;
+//    private ParkingLot parkingLot;
 
     private List<ParkingBoy> parkingBoyList;
 
-    private ParkingCarProcess parkingCarProcess;
+    private List<ParkingLot> parkingLots;
 
-    private FetchCarProcess fetchCarProcess;
 
+//    public ParkingLotManager(List<ParkingLot> parkingLots) {
+//        super(parkingLots);
+//        this.parkingBoyList = new ArrayList<>();
+//    }
     public ParkingLotManager() {
+        super();
+//        super(parkingLots);
         this.parkingBoyList = new ArrayList<>();
-        this.parkingCarProcess = new ParkingCarProcess();
-        this.fetchCarProcess = new FetchCarProcess();
     }
 
     public List<ParkingBoy> getParkingBoyList() {
@@ -30,13 +33,25 @@ public class ParkingLotManager {
             return new ParkingCarResult();
     }
 
-    public ParkingLot getParkingLot() {
-        return parkingLot;
+    public void setParkingLots(List<ParkingLot> parkingLots) {
+        this.parkingLots = parkingLots;
     }
 
-    public void setParkingLot(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+    public List<ParkingLot> getParkingLots() {
+        return parkingLots;
     }
+
+    public void addParkingBoy(ParkingBoy parkingBoy) {
+        this.parkingBoyList.add(parkingBoy);
+    }
+
+    //    public ParkingLot getParkingLot() {
+//        return parkingLot;
+//    }
+//
+//    public void setParkingLot(ParkingLot parkingLot) {
+//        this.parkingLot = parkingLot;
+//    }
 
     public FetchCarResult specifyParkingBoyToFetch(ParkingBoy parkingBoy, Ticket ticket) {
         if (parkingBoyList.contains(parkingBoy))
@@ -46,10 +61,13 @@ public class ParkingLotManager {
     }
 
     public ParkingCarResult parkCar(Car car) {
-        return parkingCarProcess.parkCarByManager(car, parkingLot);
+        super.setParkingLotList(this.parkingLots);
+        return super.park(car);
+//        return parkingCarProcess.parkCarByManager(car, parkingLot);
     }
 
     public FetchCarResult fetchCar(Ticket ticket) {
-        return fetchCarProcess.fetchCarByManager(ticket, parkingLot);
+        return super.fetch(ticket);
+//        return fetchCarProcess.fetchCarByManager(ticket, parkingLot);
     }
 }
